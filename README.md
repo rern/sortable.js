@@ -9,7 +9,7 @@ A jquery plugin for table sorting
 - zebra stripe row
 - highlight sorted column
 - maintain scroll position on screen rotate
-- screen rotate responsive 
+- screen rotate responsive
 - เรียงลำดับภาษาไทยได้ถูกต้อง
   
 **usage:**  
@@ -49,7 +49,14 @@ $('tableid').sortable( {
 } );
 ...
 ```
-**custom css for table:**  
+**Recommend: Create table from array**  
+jquery function - [**array2table**](https://github.com/rern/js/blob/master/array2table.md) for less overhead by prepare only array
+- less coding
+- less data from server
+- skip table to array conversion for sorting
+
+
+**Custom css for table:**  
   edit in `sortable.css`    
   
 [**locale code**](https://r12a.github.io/app-subtags/)
