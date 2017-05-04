@@ -1,7 +1,7 @@
 # sortable.js
-A jquery plugin for table sorting
+A jQuery plugin for table sorting
   
-[**DEMO**](https://rern.github.io/sortable/)    
+[**Demo**](https://rern.github.io/sortable/)    
 - sortable
 - fixed header
 - scrollable body
@@ -12,7 +12,7 @@ A jquery plugin for table sorting
 - screen rotate responsive
 - เรียงลำดับภาษาไทยได้ถูกต้อง
   
-**usage:**  
+**Usage:**  
 ```html
 ...
 <link rel="stylesheet" href="/path/sortable.css">
@@ -39,7 +39,7 @@ A jquery plugin for table sorting
 $('tableid').sortable();                 // without options > full page table
 // or
 $('tableid').sortable( {
-	  divBeforeTable:	 'divbeforeid' // default: (none) - div before table, enclosed in single div
+	  divBeforeTable:  'divbeforeid' // default: (none) - div before table, enclosed in single div
 	, divAfterTable:   'divafterid'  // default: (none) - div after table, enclosed in single div
 	, initialSort:     'column#'     // default: (none) - start with 0
 	, initialSortDesc: false         // default: false
@@ -50,11 +50,10 @@ $('tableid').sortable( {
 ...
 ```
 **Recommend: Create table from array**  
-jquery function - [**array2table**](https://github.com/rern/js/blob/master/array2table.md) for less overhead by prepare only array
+jQuery function - [**array2table**](https://github.com/rern/js/blob/master/array2table.md) for less overhead by prepare only array
 - less coding
 - less data from server
 - skip table to array conversion for sorting
-
 
 **Custom css for table:**  
   edit in `sortable.css`    
