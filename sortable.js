@@ -32,8 +32,8 @@ $('tableid').sortable( {
 } );
 ...
 
-**custom css for table:**  
-  edit in `sortable.css`    
+custom css for table:
+edit in sortable.css
 */
 
 ( function ( $ ) {
@@ -43,7 +43,7 @@ $.fn.sortable = function ( options ) {
 var settings = $.extend( { // defaults
 	divBeforeTable: ''
 	, divAfterTable: ''
-	, nitialSort: ''
+	, initialSort: ''
 	, initialSortDesc: false
 	, locale: 'en'
 	, negativeSort: []
