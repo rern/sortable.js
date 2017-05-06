@@ -3,6 +3,7 @@ A jQuery plugin for table sorting
   
 [**Demo**](https://rern.github.io/sortable/)    
 - sortable
+- option for negative value sorting
 - fixed header
 - scrollable body
 - align center table
