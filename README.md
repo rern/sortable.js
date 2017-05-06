@@ -6,7 +6,7 @@ A jQuery plugin for table sorting
 - option for 
 	* initial sort column
 	* initial sort ascending or descending
-	* negative value sorting
+	* negative value in alphanumeric sorting
 	* fixed before / after div
 - fixed header
 - scrollable body
