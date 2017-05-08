@@ -65,7 +65,7 @@ var $tbtd = $tbtr.find( 'td' );
 if ( settings.tableArray.length ) {
 	var tableArray = settings.tableArray;
 } else {
-	// convert 'tbody' to value-only array [ [i, 'a', 'b', 'c'], [i, 'd', 'e', 'f'] ]
+	// convert 'tbody' to value-only array [ [i, 'a', 'b', 'c', ...], [i, 'd', 'e', 'f', ...] ]
 	var tableArray = [];
 	$tbtr.each( function ( i ) {
 		var row = [ i ];
@@ -162,15 +162,14 @@ function thead2reAlign() {
 }
 
 // #2 - add l/r padding 'td' to keep table center
-// 'detach' to avoid many dom traversings
-var $table = $table.detach();
+var $tabletmp = $table.detach(); // avoid many dom traversings
 // change 'th' to 'td'
 $thtd.prop( 'tagName' ) == 'TH' && $thtr.html( $thtr.html().replace( /th/g, 'td' ) );
 // add 'tdpad'
 $thtr.add( $tbtr ).prepend( '<td class="tdpad"></td>' )
 	.append( '<td class="tdpad"></td>' )
 ;
-$( tableParent ).append( $table );
+$( tableParent ).append( $tabletmp );
 // refresh cache after add 'tdpad'
 $thtd = $thtr.find( 'td' );
 $tbtd = $tbtr.find( 'td' );
@@ -218,10 +217,12 @@ $thtd.click( function ( event, initdesc ) {
 			return ab[ 0 ][ i ] - ab[ 1 ][ i ];
 		}
 	} );
-	// sort 'tbody' in-place by each 'array[ 0 ]', reference i [ [i, 'a', 'b', 'c'], [i, 'd', 'e', 'f'] ]
+	// sort 'tbody' in-place by each 'array[ 0 ]', reference i [ [i, 'a', 'b', 'c', ...], [i, 'd', 'e', 'f', ...] ]
+	$tbodytmp = $tbody.detach();
 	$.each( sorted, function () {
-		$tbody.prepend( $tbtr.eq( $( this )[ 0 ]) );
+		$tbodytmp.prepend( $tbtr.eq( $( this )[ 0 ]) );
 	} );
+	$table.append( $tbodytmp );
 	// switch sort icon and highlight sorted column
 	$thead2a.add( $thtd ).add( $tbtd )
 		.removeClass( 'asc desc sorted' )
