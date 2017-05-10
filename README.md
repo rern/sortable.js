@@ -15,7 +15,7 @@ A jQuery plugin for table sorting
 - highlight sorted column
 - maintain scroll position on screen rotate
 - screen rotate responsive
-- เรียงลำดับภาษาไทยได้ถูกต้อง (เรียงไทยก่อนอังกฤษ `locale: 'th'`
+- เรียงลำดับภาษาไทยได้ถูกต้อง (เรียงไทยก่อนอังกฤษ `locale: 'th'`)
   
 **Usage:**  
 ```html
