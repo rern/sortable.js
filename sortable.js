@@ -49,7 +49,7 @@ var settings = $.extend( {   // defaults:
 	, initialSortDesc: false // initial sort descending
 	, locale: 'en'           // base language code
 	, negativeSort: []       // column with negative value
-	, rotateTimeout: 400     // try higher if 'thead2' misaligned
+	, timeout: 400     // try higher if 'thead2' misaligned
 	, shortViewportH: 414    // max height to apply fixed 'thead2'
 	, tableArray : ''        // raw data array to skip extraction
 }, options );
@@ -134,33 +134,34 @@ $thtr.add( $tbtr )
 $thtd = $thtr.find( 'td' );
 $tbtd = $tbtr.find( 'td' );
 
-var thead2html = '';
-var tblW = 0;
+var thead2html = '<a></a>';
 $( tableParent ).append( $tabletmp ) // width available only after appended
 	.find( 'thead td' ).each( function ( i ) { // allocate width for sort icon
 		if ( i > 0 && i < ( $thtd.length - 1 ) ) { // without 'tdpad'
-			var tdW = Math.round( $( this ).outerWidth() );
-			tblW += tdW; // for calculated 'tdpad' width, fix $('.tdpad').outerWidth() delay
+			var tdW = $( this ).outerWidth();
 			$( this ).css( 'min-width', tdW  +'px' );
-			var tdHide = $( this ).is( ':hidden' ) ? 'display: none;' : '';
-			thead2html += '<a style="' // prepare 'thead2'
-				+'width: '+ tdW  +'px;'
-				+'text-align: '+ $( this ).css( 'text-align' ) +';'
-				+ tdHide
-				+'">'+ $( this ).text() +'</a>'
-			;
+			thead2html += '<a>'+ $( this ).text() +'</a>';
 		}
 	} ).removeClass( 'asctmp' )
 ;
 
 // #### add fixed header 'thead2'
 $( 'body' ).prepend(
-	'<div id="'+ tableID +'th2" class="sortableth2">'
-		+'<a style="width: '+ Math.round( ( $window.width() - tblW ) / 2 ) +'px;"></a>'+ thead2html
-	+'</div>'
+	'<div id="'+ tableID +'th2" class="sortableth2" style="display: none;">'+ thead2html +'</div>'
 );
 var $thead2 = $( '#'+ tableID +'th2' );
 var $thead2a = $thead2.find( 'a' );
+setTimeout( function () {
+	$thtd.each( function ( i ) {
+		var $th2a = $thead2a.eq( i );
+		$th2a.css( {
+			'width': $( this ).outerWidth() +'px'
+			, 'text-align': $( this ).css( 'text-align' )
+		} ); // for changed width
+		$( this ).is( ':hidden' ) && $th2a.hide();
+	} );
+	$thead2.show();
+}, settings.timeout );
 // delegate click to 'thead'
 $thead2a.click( function () {
 	$thtd.eq( $( this ).index() ).click();
@@ -212,11 +213,11 @@ var positionY = 0;
 var scrollTimeout;
 function getScrollY() {
 	$window.scroll( function () {
-		// cancel previous 'scroll' within 'rotateTimeout'
+		// cancel previous 'scroll' within 'timeout'
 		clearTimeout( scrollTimeout );
 		scrollTimeout = setTimeout( function () {
 			positionY = window.scrollY;
-		}, settings.rotateTimeout );
+		}, settings.timeout );
 	} );
 };
 getScrollY();
@@ -240,14 +241,14 @@ window.addEventListener( 'orientationchange', function () {
 //	alert( 'rotate '+ positionY );
 	setTimeout( function () {
 		$window.scrollTop( positionCurrent );
-	}, settings.rotateTimeout );
+	}, settings.timeout );
 } );
 
 // #### realign 'thead2' on rotate / resize
 var resizeTimeout;
 window.addEventListener( 'resize', function () {
 	$window.off( 'scroll' ); // suppress new 'scroll'
-	// cancel previous 'resize' within 'rotateTimeout'
+	// cancel previous 'resize' within 'timeout'
 	clearTimeout( resizeTimeout );
 	resizeTimeout = setTimeout( function () {
 //		alert( 'resize '+ positionY );
@@ -259,7 +260,7 @@ window.addEventListener( 'resize', function () {
 		$thead2.show();
 		// re-enable 'scroll' after 'orientationchange' > 'resize'
 		getScrollY();
-	}, settings.rotateTimeout );
+	}, settings.timeout );
 } );
 //******************************************************************
 }
