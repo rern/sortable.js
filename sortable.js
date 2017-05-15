@@ -28,8 +28,8 @@ $('tableid').sortable( {
 	, initialSortDesc: true          // default: false
 	, locale:          'code'        // default: 'en'   - locale code
 	, negativeSort:    [column#]     // default: (none) - column with negative value
-	, rotateTimeout:   400           // try higher if 'thead2' misaligned
-	, shortViewportH:  414           // max height to apply fixed 'thead2'
+	, rotateTimeout:   ms            // try higher if 'thead2' misaligned
+	, shortViewportH:  px            // max height to unfix divBeforeTable, divAfterTable
 	, tableArray:      []            // default: (none) - use table data array directly
 } );
 ...
@@ -41,7 +41,7 @@ edit in sortable.css
 ( function ( $ ) {
 
 $.fn.sortable = function ( options ) {
-//*****************************************************************************
+//******************************************************************
 var settings = $.extend( {   // #### defaults:
 	divBeforeTable: ''       // 
 	, divAfterTable: ''      // 
@@ -50,7 +50,7 @@ var settings = $.extend( {   // #### defaults:
 	, locale: 'en'           // 
 	, negativeSort: []       // column with negative value
 	, timeout: 400           // try higher if 'thead2' misaligned
-	, shortViewportH: 414    // max height to apply fixed 'thead2'
+	, shortViewportH: 414    // max height to unfix divBeforeTable, divAfterTable
 	, tableArray : []        // raw data array to skip extraction
 }, options );
 
@@ -178,7 +178,7 @@ function thead2align() {
 				$( this ).is(':hidden') &&
 					$thead2a.eq( i ).hide(); // set hidden header
 			} )
-				.removeClass( 'asctmp' )
+		.removeClass( 'asctmp' )
 	;
 	$thead2a.eq( 0 ) // set 'td' min-width then get 'tdpad' width
 		.css( 'width', $thtd.eq( 0 ).outerWidth() )
@@ -271,8 +271,9 @@ window.addEventListener( 'resize', function () {
 		getScrollTop(); // re-enable 'scroll'
 	}, settings.timeout );
 } );
-//*****************************************************************************
+//******************************************************************
 }
 
 } ( jQuery ) );
+
 
