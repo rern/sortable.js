@@ -18,7 +18,6 @@ A jQuery plugin for table sorting
 - เรียงลำดับภาษาไทยได้ถูกต้อง (เรียงไทยก่อนอังกฤษ `locale: 'th'`)
   
 **Usage:**  
-( `divbeforeid` and `divafterid` css height must be set.)
 ```html
 ...
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
